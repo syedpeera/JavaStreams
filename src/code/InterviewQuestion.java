@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -84,6 +86,21 @@ public class InterviewQuestion {
 		System.out.println(secondHighest);
 		int secondLowest = list.stream().sorted().distinct().skip(1).findFirst().get();
 		System.out.println(secondLowest);
+		
+		//***Finding the non repeating character in s given string
+		String s = "givenInputString";
+		String firstNonRepeatingChar = Arrays.stream(s.split(""))
+			    .collect(Collectors.groupingBy(e -> e, LinkedHashMap::new, Collectors.counting()))
+			    .entrySet().stream()
+			    .filter(e -> e.getValue() == 1)
+			    .map(Map.Entry::getKey)
+			    .findFirst()
+			    .orElse(null);
+		
+		System.out.println(firstNonRepeatingChar);
+		
+		firstNonRepeatingChar = Arrays.stream(s.split("")).collect(Collectors.groupingBy(e->e, () -> new LinkedHashMap<>(), Collectors.counting())).entrySet().stream().filter(e -> e.getValue()==1).map(e -> e.getKey()).findFirst().orElse(null);
+		
+		System.out.println(firstNonRepeatingChar);
 	}
-
 }

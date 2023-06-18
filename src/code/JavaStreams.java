@@ -51,6 +51,10 @@ class Employee{
 	public int getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
 }
 
 class Student{
@@ -82,7 +86,7 @@ public class JavaStreams {
 
 	public static void main(String[] args) {  
 		/* filter method */
-		List<Integer>	numbersList = Arrays.asList(10,15,17,20,23,25,28,30,31,43);
+		List<Integer> numbersList = Arrays.asList(10,15,17,20,23,25,28,30,31,43);
 		List<Integer> evenList = numbersList.stream().filter(n->n%2==0).collect(Collectors.toList());
 		numbersList.stream().filter(n->n%2!=0).forEach(n->System.out.println(n));
 		System.out.println(evenList);
@@ -293,6 +297,12 @@ public class JavaStreams {
 		 System.out.println(groupByAgeNamesList);
 		 studentList.stream().collect(Collectors.groupingBy(s->s.getAge(), ()->new HashMap<>(), Collectors.mapping(s->s.getName(), Collectors.toList())));
 		 System.out.println(groupByAgeNamesList);
+		 
+		 //***Nth Highest Salary
+		 List<Employee> employeeList = Arrays.asList(new Employee(101, "Alice", 20000), new Employee(102, "Bob", 30000), new Employee(103, "Alex", 70000), new Employee(104, "Sam", 55000), new Employee(105, "Thomas", 75000), new Employee(106, "Rex", 65000), new Employee(107, "Larry", 44000), new Employee(108, "Steve", 82000), new Employee(109, "Elon", 91000), new Employee(110, "Bruce", 37000));
+		 int n=3;
+		 Employee nthHighestSalaryEmployee = employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).skip(n-1).findFirst().get();
+		 System.out.println(nthHighestSalaryEmployee);
 	}
 }  
    
